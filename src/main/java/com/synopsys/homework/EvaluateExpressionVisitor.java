@@ -5,14 +5,14 @@ import java.util.Map;
 
 import org.slf4j.LoggerFactory;
 
-import antlr4.CalcGrammerBaseVisitor;
-import antlr4.CalcGrammerParser;
+import antlr4.CalcGrammarBaseVisitor;
+import antlr4.CalcGrammarParser;
 import ch.qos.logback.classic.Logger;
 
 /**
  * Class extending antlr4 generated BaseVisitor class to implement the methods specified in the grammar file
  */
-public class EvaluateExpressionVisitor extends CalcGrammerBaseVisitor<Integer> {
+public class EvaluateExpressionVisitor extends CalcGrammarBaseVisitor<Integer> {
 
 	private static final Logger LOG = (Logger) LoggerFactory
 			.getLogger(EvaluateExpressionVisitor.class);
@@ -25,7 +25,7 @@ public class EvaluateExpressionVisitor extends CalcGrammerBaseVisitor<Integer> {
 	 * @see antlr4.CalcGrammerBaseVisitor#visitNumExp(antlr4.CalcGrammerParser.NumExpContext)
 	 */
 	@Override
-	public Integer visitNumExp(CalcGrammerParser.NumExpContext ctx) {
+	public Integer visitNumExp(CalcGrammarParser.NumExpContext ctx) {
 		LOG.debug("Inside visitNumExp..");
 		Integer num = Integer.parseInt(ctx.INT().getText());
 		LOG.info("The numerical value is, {}", num);
@@ -38,7 +38,7 @@ public class EvaluateExpressionVisitor extends CalcGrammerBaseVisitor<Integer> {
 
 
 	@Override
-	public Integer visitIdExp(CalcGrammerParser.IdExpContext ctx) {
+	public Integer visitIdExp(CalcGrammarParser.IdExpContext ctx) {
 		String id = ctx.ID().getText();
 		LOG.debug("Looking for value of the id: {}", id);
 
@@ -61,7 +61,7 @@ public class EvaluateExpressionVisitor extends CalcGrammerBaseVisitor<Integer> {
 	 * Using Math.addExact from Java8, which throw an ArithmeticException on overflow
 	 */
 	@Override
-	public Integer visitAddExp(CalcGrammerParser.AddExpContext ctx) {
+	public Integer visitAddExp(CalcGrammarParser.AddExpContext ctx) {
 		Integer left = visit(ctx.exp(0));
 		Integer right = visit(ctx.exp(1));
 		LOG.debug("Adding values {} and {}", left, right);
@@ -84,7 +84,7 @@ public class EvaluateExpressionVisitor extends CalcGrammerBaseVisitor<Integer> {
 	 * Using Math.subtractExact from Java8, which throw an ArithmeticException on overflow
 	 */
 	@Override
-	public Integer visitSubExp(CalcGrammerParser.SubExpContext ctx) {
+	public Integer visitSubExp(CalcGrammarParser.SubExpContext ctx) {
 		Integer left = visit(ctx.exp(0));
 		Integer right = visit(ctx.exp(1));
 		LOG.debug("Subtracting {} from {}", right, left);
@@ -107,7 +107,7 @@ public class EvaluateExpressionVisitor extends CalcGrammerBaseVisitor<Integer> {
 	 * Using Math.multiplyExact from Java8, which throw an ArithmeticException on overflow
 	 */
 	@Override
-	public Integer visitMultExp(CalcGrammerParser.MultExpContext ctx) {
+	public Integer visitMultExp(CalcGrammarParser.MultExpContext ctx) {
 		Integer left = visit(ctx.exp(0));
 		Integer right = visit(ctx.exp(1));
 		LOG.debug("Multiplying {} and {}", left, right);
@@ -130,7 +130,7 @@ public class EvaluateExpressionVisitor extends CalcGrammerBaseVisitor<Integer> {
 	 * Using Math.floorDiv from Java8, which throw an ArithmeticException on divide by zero
 	 */
 	@Override
-	public Integer visitDivExp(CalcGrammerParser.DivExpContext ctx) {
+	public Integer visitDivExp(CalcGrammarParser.DivExpContext ctx) {
 		Integer left = visit(ctx.exp(0));
 		Integer right = visit(ctx.exp(1));
 		LOG.debug("Dividing {} by {}", left, right);
@@ -169,7 +169,7 @@ public class EvaluateExpressionVisitor extends CalcGrammerBaseVisitor<Integer> {
 	 *  Creates key-value pair for visited variable/identifier, which is used for further evaluation of the expression
 	 */
 	@Override
-	public Integer visitLetExp(CalcGrammerParser.LetExpContext ctx) {
+	public Integer visitLetExp(CalcGrammarParser.LetExpContext ctx) {
 		String id = ctx.ID().getText();
 		Integer value = new Integer(visit(ctx.exp(0)));
 		LOG.debug("Inside let expression evaluation");

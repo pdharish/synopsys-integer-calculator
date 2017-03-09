@@ -8,8 +8,8 @@ import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.slf4j.LoggerFactory;
 
-import antlr4.CalcGrammerLexer;
-import antlr4.CalcGrammerParser;
+import antlr4.CalcGrammarLexer;
+import antlr4.CalcGrammarParser;
 import ch.qos.logback.classic.Logger;
 
 import com.synopsys.homework.exception.CalculatorException;
@@ -86,9 +86,9 @@ public class AppCalculator {
 		 * By extending the generated visitor class, we can visit entry method defined by the parser rule to fetch result.
 		 */
 		ANTLRInputStream input = new ANTLRInputStream(expression);
-		CalcGrammerLexer lexer = new CalcGrammerLexer(input); //
+		CalcGrammarLexer lexer = new CalcGrammarLexer(input); //
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
-		CalcGrammerParser parser = new CalcGrammerParser(tokens);
+		CalcGrammarParser parser = new CalcGrammarParser(tokens);
 		ParseTree tree;
 		Integer result = null;
 		
